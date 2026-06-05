@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fearless — Salary Negotiation Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --accent:#2E71F2;--accent-press:#1F5FE0;--accent-soft:#EAF1FE;
+  --navy:#16243D;--text:#3A4659;--muted:#79839A;
+  --line:#E7EBF2;--line-2:#EFF2F7;--bg:#FFFFFF;--surface:#F7F9FC;--soft-blue:#DDE9FC;
+  --radius:14px;--radius-sm:10px;
+  --shadow:0 12px 40px -18px rgba(22,36,61,.20);--shadow-panel:0 24px 70px -22px rgba(22,36,61,.40);
+  --font:'Schibsted Grotesk',system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+::selection{background:var(--soft-blue);color:var(--navy)}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+.wrap{max-width:780px;margin:0 auto;padding:0 24px}
+
+.header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line-2)}
+.header-in{max-width:780px;margin:0 auto;padding:15px 24px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:9px;font-weight:600;font-size:17px;color:var(--navy);letter-spacing:-.01em;cursor:pointer}
+.brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent)}
+.stepcount{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;display:none}
+body.in-app .stepcount{display:block}
+.topbar{height:2px;background:var(--line-2);position:relative;display:none}
+body.in-app .topbar{display:block}
+.topbar-fill{position:absolute;left:0;top:0;height:100%;width:10%;background:var(--accent);transition:width .45s cubic-bezier(.3,.8,.3,1)}
+
+.btn{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:15px;padding:13px 22px;border-radius:var(--radius-sm);transition:.18s}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-press)}
+.btn-secondary{background:#fff;color:var(--navy);border:1px solid var(--line)}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+
+#landing{padding:clamp(56px,12vh,120px) 0 80px}
+.tagline{display:inline-block;font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--accent);background:var(--accent-soft);padding:6px 13px;border-radius:100px;margin-bottom:26px}
+#landing h1{font-size:clamp(36px,6.4vw,58px);line-height:1.04;letter-spacing:-.025em;font-weight:600;color:var(--navy);max-width:16ch}
+#landing .lede{font-size:clamp(17px,2.1vw,20px);color:var(--muted);max-width:54ch;margin:22px 0 36px}
+.steps-list{margin-top:64px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:0}
+.sli{display:flex;gap:14px;align-items:baseline;padding:16px 4px;border-bottom:1px solid var(--line-2)}
+.sli .n{font-size:13px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums;min-width:22px}
+.sli .t{font-size:15px;color:var(--navy);font-weight:500}
+
+#app{display:none;padding:38px 0 110px}
+.dots{display:flex;gap:7px;margin-bottom:30px;flex-wrap:wrap}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--line);transition:.2s;padding:0}
+.dot.done{background:var(--soft-blue)}
+.dot.active{background:var(--accent);transform:scale(1.25)}
+.dot:hover{background:var(--accent)}
+
+.stage{animation:fade .4s ease}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.stage h2{font-size:clamp(26px,3.8vw,34px);line-height:1.1;letter-spacing:-.02em;font-weight:600;color:var(--navy)}
+.stage .sub{font-size:17px;color:var(--muted);margin:10px 0 30px;max-width:58ch}
+
+.concept{background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius);padding:clamp(22px,3vw,30px);margin-bottom:32px}
+.concept h3{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.concept p{margin:0 0 13px;color:var(--text)}
+.concept p:last-child{margin-bottom:0}
+.concept strong{color:var(--navy);font-weight:600}
+.concept em{font-style:normal;color:var(--accent)}
+.concept .pull{font-size:18px;font-weight:500;color:var(--navy);line-height:1.4;margin:18px 0}
+.concept ul{list-style:none;margin:8px 0 13px}
+.concept li{position:relative;padding-left:20px;margin-bottom:9px;color:var(--text);font-size:15.5px}
+.concept li::before{content:"";position:absolute;left:2px;top:9px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.concept li b{color:var(--navy);font-weight:600}
+.note{display:flex;gap:10px;align-items:flex-start;background:var(--accent-soft);border-radius:var(--radius-sm);padding:13px 15px;margin-top:16px;font-size:14px;color:var(--navy)}
+
+.ws-label{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.ws-title{font-size:20px;font-weight:600;color:var(--navy);margin-bottom:4px;letter-spacing:-.01em}
+.ws-note{font-size:14.5px;color:var(--muted);margin-bottom:24px}
+.field{margin-bottom:20px}
+.field label{display:block;font-size:14px;font-weight:600;color:var(--navy);margin-bottom:7px}
+.field .hint{font-size:13px;color:var(--muted);font-weight:400;margin:-3px 0 8px}
+.field input,.field textarea,.field select{width:100%;font-family:inherit;font-size:15px;color:var(--navy);background:#fff;border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px 14px;transition:.16s;resize:vertical}
+.field textarea{min-height:80px;line-height:1.55}
+.field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.field input::placeholder,.field textarea::placeholder{color:#aab2c2}
+.list-rows{display:flex;flex-direction:column;gap:9px;margin-bottom:9px}
+.list-row{display:flex;gap:8px}
+.list-row input{flex:1}
+.list-row .del{width:42px;flex-shrink:0;border-radius:var(--radius-sm);background:var(--surface);color:var(--muted);font-size:17px;border:1px solid var(--line)}
+.list-row .del:hover{color:var(--accent);border-color:var(--accent)}
+.add-row{font-size:14px;font-weight:600;color:var(--accent);padding:8px 0}
+
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:34px;padding-top:26px;border-top:1px solid var(--line-2)}
+
+/* recap */
+.recap{margin-top:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;animation:fade .35s ease}
+.recap .rh{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:9px}
+.rsum{font-size:13.5px;color:var(--text);line-height:1.55;min-height:20px}
+.rsum p{margin:0 0 7px}.rsum p:last-child{margin:0}
+.rsum .typing{background:transparent;padding:1px 0;align-self:flex-start}
+.quote{margin-top:13px;padding:11px 14px;background:#fff;border:1px solid var(--line-2);border-left:3px solid var(--accent);font-size:14px;font-style:italic;color:var(--navy);line-height:1.45}
+.quote.reveal,.recap-nav.reveal{animation:fade .45s ease}
+.recap-nav{display:flex;justify-content:flex-end;gap:12px;margin-top:15px}
+@media (max-width:560px){.recap-nav{flex-direction:column-reverse}.recap-nav .btn{width:100%;justify-content:center}}
+
+/* final plan */
+.fives{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:22px 0 4px}
+.fcard{background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius-sm);padding:16px}
+.fcard .fn{font-size:13px;font-weight:600;color:var(--accent)}
+.fcard .ft{font-weight:600;color:var(--navy);margin:5px 0 3px;font-size:15px}
+.fcard .fd{font-size:13px;color:var(--muted);line-height:1.45}
+.plan{display:flex;flex-direction:column;gap:1px;background:var(--line-2);border:1px solid var(--line-2);border-radius:var(--radius);overflow:hidden;margin-top:8px}
+.prow{background:#fff;padding:16px 18px}
+.prow h4{font-size:13px;font-weight:600;color:var(--accent);margin-bottom:7px;display:flex;gap:9px}
+.prow h4 .n{color:var(--muted)}
+.pv div{font-size:14px;color:var(--text);margin-bottom:5px}
+.pv div:last-child{margin-bottom:0}
+.pv b{color:var(--navy);font-weight:600}
+.pv .empty{color:#aab2c2;font-style:italic}
+
+/* shared custom bits */
+.addbtns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.addbtn{font-size:13px;font-weight:600;color:var(--accent);border:1.5px dashed var(--line);border-radius:8px;padding:8px 12px}
+.addbtn:hover{border-color:var(--accent);background:var(--accent-soft)}
+.rm{color:var(--muted);font-size:15px;padding:1px 6px;border-radius:6px;flex-shrink:0}
+.rm:hover{color:var(--accent);background:var(--accent-soft)}
+.mininote{font-size:12.5px;color:var(--muted);margin-top:10px}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius)}
+table.grid{border-collapse:collapse;width:100%}
+table.grid th,table.grid td{border:1px solid var(--line-2);padding:8px;vertical-align:top;text-align:left}
+table.grid thead th{background:var(--surface);font-size:12px;font-weight:600;color:var(--navy);letter-spacing:.02em}
+.cellinput{width:100%;border:none;background:transparent;font-family:inherit;font-size:14px;color:var(--navy);padding:6px;font-weight:500;resize:vertical}
+.cellinput:focus{outline:none;background:var(--accent-soft);border-radius:6px}
+.celledit{display:flex;gap:2px;align-items:flex-start}
+table.grid.two .rowhead{width:42%}
+table.grid.two thead th{text-transform:uppercase}
+.issrow{display:flex;gap:4px;align-items:center;margin-bottom:6px}
+.issrow input{flex:1;font-family:inherit;font-size:13.5px;color:var(--navy);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.issrow input:focus{outline:none;border-color:var(--accent)}
+
+/* canvas (native) */
+.canvastoolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.canvasStage{position:relative;width:100%;height:440px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);overflow:hidden;touch-action:none;user-select:none}
+.cv-lines{position:absolute;inset:0;pointer-events:none;z-index:1}
+.cnode{position:absolute;transform:translate(-50%,-50%);z-index:2;cursor:grab;font-family:var(--font);text-align:center;line-height:1.25;display:flex;align-items:center;justify-content:center;box-sizing:border-box;touch-action:none;white-space:normal;overflow-wrap:anywhere;word-break:break-word;hyphens:auto}
+.cnode:active{cursor:grabbing}
+.cnode .ph{color:#aab2c2}
+.cnode.bubble{min-width:150px;max-width:220px;width:max-content;min-height:92px;height:auto;padding:18px 26px;border-radius:50%;background:var(--accent-soft);border:1.5px solid var(--accent);color:var(--navy);font-weight:600;font-size:13px}
+.cnode.issue{min-width:120px;max-width:200px;width:max-content;min-height:54px;height:auto;padding:11px 15px;border-radius:10px;background:#fff;border:1.5px solid #C9D4E6;color:var(--text);font-size:12px}
+.cnode.sel{border-width:3px;border-color:var(--accent-press);box-shadow:0 0 0 3px var(--accent-soft)}
+.cnode[contenteditable=true]{outline:none;cursor:text;background:#fff}
+.im-bg{position:absolute;inset:0;z-index:0}
+.im-tray{position:absolute;left:0;right:0;top:0;background:#EEF2F8;font-size:12px;color:var(--muted);display:flex;align-items:center;padding:0 12px;border-bottom:1px solid #E1E8F2}
+.im-axes{position:absolute;inset:0;pointer-events:none}
+.im-qlabel{position:absolute;pointer-events:none}
+.im-qlabel .qt{font-size:13px;font-weight:700}
+.im-qlabel .qd{font-size:10.5px;color:#9AA3B5;margin-top:2px;max-width:44vw}
+.im-hint{position:absolute;left:0;right:0;bottom:7px;text-align:center;font-size:10.5px;color:#9AA3B5;pointer-events:none}
+.im-chip{position:absolute;transform:translate(-50%,-50%);z-index:3;cursor:grab;background:#fff;border:1.5px solid #C9D4E6;border-radius:16px;padding:5px 12px;font-size:11.5px;color:var(--navy);white-space:nowrap;max-width:170px;overflow:hidden;text-overflow:ellipsis;box-shadow:0 2px 6px -2px rgba(22,36,61,.16);touch-action:none}
+.im-chip.drag{cursor:grabbing;z-index:6}
+.im-chip.q-story{background:#e7f7ee;border-color:#1f8a4c}
+.im-chip.q-contentious{background:#fdecec;border-color:#c0392b}
+.im-chip.q-tradeoff{background:var(--accent-soft);border-color:#2E71F2}
+.im-chip.q-low{background:#f0f0f3;border-color:#aab2c2}
+
+/* issue fallback */
+.pool{display:flex;flex-wrap:wrap;gap:8px;padding:12px;border:1.5px dashed var(--line);border-radius:var(--radius);margin-bottom:14px;min-height:54px}
+.pool .pl{font-size:12.5px;color:var(--muted);width:100%}
+.ichip{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--line);border-radius:100px;padding:5px 6px 5px 11px;font-size:13px;color:var(--navy)}
+.ichip select{border:none;background:var(--surface);border-radius:6px;font-size:11px;color:var(--muted);padding:3px 4px}
+.quadwrap{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:560px){.quadwrap{grid-template-columns:1fr}}
+.quad{border:1px solid var(--line);border-radius:12px;padding:12px;min-height:90px;background:var(--surface)}
+.quad h5{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:8px}
+.quad .qchips{display:flex;flex-wrap:wrap;gap:6px}
+.emptyhint{font-size:13.5px;color:var(--muted);background:var(--surface);border:1px dashed var(--line);border-radius:var(--radius);padding:18px}
+
+/* meso table */
+.mesowrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius)}
+table.meso{border-collapse:collapse;width:100%;min-width:660px}
+table.meso th,table.meso td{border:1px solid var(--line-2);padding:8px;font-size:13px;vertical-align:top;text-align:left}
+table.meso thead th{background:var(--surface);color:var(--navy);font-weight:600}
+.tyb{font-size:11px;font-weight:600;padding:2px 8px;border-radius:100px;display:inline-block;white-space:nowrap}
+.ty-story{background:#e7f7ee;color:#1f8a4c}
+.ty-contentious{background:#fdecec;color:#c0392b}
+.ty-tradeoff{background:var(--accent-soft);color:var(--accent-press)}
+.ty-low{background:#f0f0f3;color:#777}
+.rec{font-size:11.5px;color:var(--muted)}
+table.meso textarea{width:100%;min-width:130px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:12.5px;padding:6px;resize:vertical;min-height:50px;color:var(--navy)}
+table.meso textarea:focus{outline:none;border-color:var(--accent)}
+
+/* batna questionnaire */
+.scorebox{display:flex;align-items:center;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin-bottom:16px;position:sticky;top:54px;z-index:3}
+.scorenum{font-size:32px;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums;line-height:1}
+.scoremeta{flex:1}
+.scbadge{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:100px;letter-spacing:.03em}
+.sc-weak{background:#fdecec;color:#c0392b}
+.sc-avg{background:#fff4e0;color:#b9770a}
+.sc-strong{background:#e7f7ee;color:#1f8a4c}
+.scdesc{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.45}
+.quiz{display:flex;flex-direction:column;gap:10px;margin:6px 0 18px}
+.qrow{background:#fff;border:1px solid var(--line);border-radius:11px;padding:12px 14px}
+.qrow .qt{font-size:14px;color:var(--navy);font-weight:500;margin-bottom:9px}
+.qscale{display:flex;align-items:center;gap:10px}
+.qscale input[type=range]{flex:1;accent-color:var(--accent);height:4px}
+.qlo,.qhi{font-size:11px;color:var(--muted);width:96px;flex-shrink:0;line-height:1.25}
+.qhi{text-align:right}
+.qval{font-size:14px;font-weight:700;color:var(--accent);width:24px;text-align:center;font-variant-numeric:tabular-nums}
+@media(max-width:560px){.qlo,.qhi{width:74px}.scorebox{position:static}}
+
+/* FAB + panel */
+.fab{position:fixed;right:24px;bottom:24px;z-index:60;display:flex;align-items:center;background:var(--accent);color:#fff;height:56px;width:56px;border-radius:50%;box-shadow:0 14px 30px -10px rgba(46,113,242,.6);transition:.22s cubic-bezier(.2,.8,.2,1)}
+.fab:hover{background:var(--accent-press);transform:translateY(-2px)}
+.fab svg{width:24px;height:24px;margin:0 auto}
+.fab-tip{position:absolute;right:70px;background:var(--navy);color:#fff;font-size:13px;font-weight:500;padding:8px 12px;border-radius:8px;white-space:nowrap;opacity:0;transform:translateX(6px);transition:.18s;pointer-events:none}
+.fab-tip::after{content:"";position:absolute;right:-5px;top:50%;transform:translateY(-50%);border:5px solid transparent;border-left-color:var(--navy)}
+.fab:hover .fab-tip{opacity:1;transform:translateX(0)}
+body.panel-open .fab{opacity:0;pointer-events:none;transform:scale(.6)}
+.scrim{position:fixed;inset:0;background:rgba(22,36,61,.4);z-index:55;opacity:0;pointer-events:none;transition:.25s}
+.scrim.show{opacity:1;pointer-events:auto}
+.panel{position:fixed;right:24px;bottom:24px;z-index:70;width:390px;max-width:calc(100vw - 32px);height:min(620px,calc(100vh - 48px));background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-panel);display:flex;flex-direction:column;overflow:hidden;opacity:0;transform:translateY(20px) scale(.98);pointer-events:none;transition:.26s cubic-bezier(.2,.8,.2,1);transform-origin:bottom right}
+.panel.open{opacity:1;transform:none;pointer-events:auto}
+.panel-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--line-2)}
+.who{display:flex;align-items:center;gap:11px}
+.av{width:40px;height:40px;border-radius:11px;background:var(--accent);color:#fff;font-weight:600;font-size:17px;display:grid;place-items:center}
+.nm{font-weight:600;color:var(--navy);font-size:15.5px;line-height:1.2}
+.rl{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.rl .live{width:6px;height:6px;border-radius:50%;background:#4caf7d}
+.x{width:32px;height:32px;border-radius:8px;color:var(--muted);font-size:16px;display:grid;place-items:center}
+.x:hover{background:var(--surface);color:var(--navy)}
+.ctx{padding:11px 18px;background:var(--surface);border-bottom:1px solid var(--line-2);font-size:12.5px;color:var(--muted)}
+.ctx b{color:var(--navy);font-weight:600}
+.thread{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px}
+.thread::-webkit-scrollbar{width:6px}
+.thread::-webkit-scrollbar-thumb{background:var(--line);border-radius:10px}
+.msg{max-width:86%;font-size:14px;line-height:1.55;padding:11px 14px;border-radius:13px;animation:pop .25s ease}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.msg.bot{background:var(--surface);color:var(--text);align-self:flex-start;border-bottom-left-radius:4px}
+.msg.bot b{color:var(--navy);font-weight:600}
+.msg.bot p{margin:0 0 8px}.msg.bot p:last-child{margin:0}
+.msg.bot ul{margin:5px 0;padding-left:17px}.msg.bot li{margin-bottom:4px}
+.msg.me{background:var(--accent);color:#fff;align-self:flex-end;border-bottom-right-radius:4px;font-weight:500}
+.typing{display:flex;gap:5px;padding:13px 15px;align-self:flex-start;background:var(--surface);border-radius:13px}
+.typing span{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:blink 1.3s infinite}
+.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,60%,100%{opacity:.3}30%{opacity:1}}
+.starters{padding:0 18px 10px;display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;color:var(--navy);background:var(--accent-soft);padding:7px 11px;border-radius:100px;line-height:1.3;text-align:left;transition:.15s}
+.chip:hover{background:var(--soft-blue)}
+.composer{display:flex;gap:8px;align-items:flex-end;padding:13px 14px;border-top:1px solid var(--line-2)}
+.composer textarea{flex:1;font-family:inherit;font-size:14px;color:var(--navy);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 13px;resize:none;max-height:110px;line-height:1.4}
+.composer textarea:focus{outline:none;border-color:var(--accent);background:#fff}
+.send{width:42px;height:42px;flex-shrink:0;border-radius:11px;background:var(--accent);color:#fff;font-size:18px;display:grid;place-items:center;transition:.16s}
+.send:hover{background:var(--accent-press)}
+.send:disabled{opacity:.45;cursor:not-allowed}
+@media (max-width:560px){.steps-list{grid-template-columns:1fr}.fives{grid-template-columns:1fr 1fr}.panel{right:0;left:0;bottom:0;width:100%;max-width:100%;height:86vh;border-radius:18px 18px 0 0;transform:translateY(100%)}.panel.open{transform:none}.fab{right:18px;bottom:18px}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-in">
+    <div class="brand" onclick="goHome()"><span class="dot"></span>Fearless</div>
+    <div class="stepcount" id="stepCount">Step 1 of 10</div>
+  </div>
+  <div class="topbar"><div class="topbar-fill" id="progFill"></div></div>
+</header>
+
+<section id="landing">
+  <div class="wrap">
+    <span class="tagline">Salary negotiation prep</span>
+    <h1>Get a better offer than you expected.</h1>
+    <p class="lede">A step-by-step tool that helps you prepare for your upcoming salary negotiation — so you walk in clear, confident, and ready to ask for more than you'd planned to.</p>
+    <button class="btn btn-primary" onclick="startApp()">Start preparing →</button>
+    <div class="steps-list" id="stepsList"></div>
+  </div>
+</section>
+
+<main id="app">
+  <div class="wrap">
+    <div class="dots" id="dots"></div>
+    <div class="stage" id="stage"></div>
+  </div>
+</main>
+
+<button class="fab" id="fab" onclick="openPanel()" aria-label="Ask Dr Medvec">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.6-.8L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8A8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg>
+  <span class="fab-tip">Ask Dr Medvec</span>
+</button>
+<div class="scrim" id="scrim" onclick="closePanel()"></div>
+<section class="panel" id="panel" aria-hidden="true">
+  <div class="panel-head">
+    <div class="who"><div class="av">M</div><div><div class="nm">Dr Medvec</div><div class="rl"><span class="live"></span> Salary negotiation coach</div></div></div>
+    <button class="x" onclick="closePanel()" aria-label="Close">✕</button>
+  </div>
+  <div class="ctx" id="panelCtx"></div>
+  <div class="thread" id="thread"></div>
+  <div class="starters" id="starters"></div>
+  <div class="composer">
+    <textarea id="coachInput" rows="1" placeholder="Ask Dr Medvec anything…" onkeydown="inputKey(event)" oninput="autoGrow(this)"></textarea>
+    <button class="send" id="sendBtn" onclick="sendMsg()" aria-label="Send">→</button>
+  </div>
+</section>
+
+<script>
+/* ====================== STEPS ====================== */
+const STEPS = [
+{
+  tag:"Step 01", title:"Build Your Context",
+  sub:"Nerves come from walking in unprepared. Start by capturing the situation and the two things that drive the whole plan.",
+  concept:`
+    <h3>Set the scene</h3>
+    <p>Most negotiation anxiety traces to three worries — making the first offer, the other side walking away, and conflict. Preparation dissolves all three.</p>
+    <p class="pull"><em>The cure for fear is preparation — not nerve.</em></p>
+    <ul>
+      <li><b>Company / team profile</b> — the situation you're negotiating inside.</li>
+      <li><b>Their pressing needs</b> — what the employer most needs solved right now.</li>
+      <li><b>Your differentiators</b> — what you bring that few others can.</li>
+    </ul>
+    <div class="note"><div>Everything you build next flows from these.</div></div>`,
+  ws:{title:"Set your scene",note:"Give Dr Medvec the context so every suggestion is tailored to you.",
+    fields:[
+      {key:"role",type:"text",label:"Role / title you're negotiating for",placeholder:"e.g. VP of Sales"},
+      {key:"company",type:"text",label:"Company or counterpart",placeholder:"e.g. Your current employer"},
+      {key:"situation",type:"select",label:"What kind of negotiation is this?",options:["A new job offer","A raise at my current job","A promotion / internal move","A contract or freelance rate"]},
+      {key:"companyProfile",type:"textarea",label:"Company / team profile",hint:"Size, stage, your team, who you'll negotiate with — anything that frames the context.",placeholder:"e.g. 300-person firm pushing into a new market; I'd report to the EVP of Sales."},
+      {key:"pressingneeds",type:"textarea",label:"The employer's pressing needs",hint:"What does the company most need solved right now?",placeholder:"e.g. Grow revenue in a market where they have no expertise or team."},
+      {key:"differentiators",type:"textarea",label:"Your differentiators (quick list)",hint:"What do you bring that few others can? You'll expand these in the chart later.",placeholder:"e.g. Fluent in the language, prior sales experience in that exact market."},
+      {key:"biggestfear",type:"textarea",label:"What worries you most about this conversation?",hint:"Naming it is the first step to disarming it.",placeholder:"e.g. I'm afraid that if I push back they'll rescind the offer."}
+    ]},
+  focus:"Building context — what you're negotiating, who you're up against, what they need, and what makes you the answer.",
+  starters:["Will they pull the offer if I negotiate?","How do I turn my background into differentiators?","What context matters most here?"]
+},
+{
+  tag:"Step 02", title:"Objectives & Negotiable Issues",
+  sub:"List what you're trying to achieve, then the concrete issues that get you there.",
+  concept:`
+    <h3>Objectives, then issues</h3>
+    <p>Strong negotiations always carry three objectives — <strong>addressing the other side's pressing needs</strong>, <strong>building relationships with senior leaders</strong>, and <strong>differentiating yourself from other employees</strong> — plus your own goals, like a raise or a title change.</p>
+    <p class="pull">More issues on the table means more room to trade.</p>
+    <p>For each objective, list the negotiable issues that serve it. The same issue can support more than one objective — that's a sign it's worth fighting for.</p>`,
+  custom:"objIssues",
+  wt:"List issues under each objective",
+  wn:"Three objectives are pre-filled. Add your own goals, then give each objective at least one negotiable issue.",
+  focus:"Listing the negotiable issues that serve each objective — the raw material for your offers.",
+  starters:["What objectives should I always include?","Help me turn my goals into negotiable issues.","Which issues are most valuable here?"]
+},
+{
+  tag:"Step 03", title:"Differentiation Chart",
+  sub:"Turn each of your strengths into the negotiable issues that flow from it.",
+  concept:`
+    <h3>From strengths to issues</h3>
+    <p>Your differentiators are the raw material of your <em>storytelling issues</em>. For each strength you bring, name the concrete issues you can put on the table <strong>because</strong> of it.</p>
+    <p class="pull">Your edge becomes leverage the moment you name it.</p>
+    <p>Add a differentiator as a bubble, then attach the issues that stem from it. These feed your issue matrix next.</p>`,
+  custom:"diffChart",
+  wt:"Build your differentiation chart",
+  wn:"Add differentiator bubbles, select one, then attach the issues that flow from it. Drag to arrange; double-click to rename.",
+  focus:"Turning differentiators into the issues that flow from them — these become your storytelling issues.",
+  starters:["What issues come from my background?","Give me storytelling-issue ideas for my strengths.","How specific should these be?"]
+},
+{
+  tag:"Step 04", title:"Issue Matrix",
+  sub:"Drag every issue into one of four quadrants to see what type of issue it really is.",
+  concept:`
+    <h3>Sort every issue</h3>
+    <p>Place each negotiable issue by how much it matters to you versus how much it matters to them:</p>
+    <ul>
+      <li><b>Storytelling</b> — matters to them, easy for you. Your goodwill currency.</li>
+      <li><b>Contentious</b> — matters to both. The hard ones, including salary.</li>
+      <li><b>Trade-off</b> — matters to you, easy for them.</li>
+      <li><b>Low-stakes</b> — easy for both; minor items.</li>
+    </ul>
+    <p class="pull">Storytelling issues are how you win the contentious ones.</p>`,
+  custom:"issueMatrix",
+  wt:"Place your issues",
+  wn:"Drag each issue from the tray into a quadrant. Issues come from the last two steps.",
+  focus:"Sorting issues into storytelling, contentious, trade-off, and low-stakes — this decides what to vary in your offers.",
+  starters:["Which of my issues are storytelling vs contentious?","Why does this matrix matter?","Help me sort my issues."]
+},
+{
+  tag:"Step 05", title:"Build Your MESO",
+  sub:"Use your sorted issues to design three offers — so they choose, instead of reject.",
+  concept:`
+    <h3>Your offer architecture</h3>
+    <p>Put three packages on the table, all equally good <em>to you</em>. The rule, straight from your issue matrix:</p>
+    <ul>
+      <li><b>Vary your storytelling issues</b> across A, B, and C.</li>
+      <li><b>Hold contentious and trade-off issues constant.</b></li>
+      <li><b>Salary</b> can vary or stay constant — your call.</li>
+    </ul>
+    <p class="pull">Three offers turn "no" into "which one?"</p>
+    <p>Each sorted issue appears below with a recommended treatment. Fill in the three options, keeping every one above your floor.</p>`,
+  custom:"mesoTable",
+  wt:"Design your three offers",
+  wn:"Every sorted issue is a row, with a recommendation based on its type. Fill out Options A, B, and C.",
+  focus:"Building three equivalent offers — vary the storytelling issues, hold the contentious ones constant.",
+  starters:["Help me fill in three equivalent offers.","What should I vary vs keep constant?","What does their choice tell me?"]
+},
+{
+  tag:"Step 06", title:"BATNA Analysis",
+  sub:"Your power comes from how much they need you. Score it, and you'll know how high to aim.",
+  concept:`
+    <h3>Power comes from how much they need you</h3>
+    <p>Your <strong>BATNA</strong> — your best outside option — is your biggest source of power. But your real leverage also depends on the <em>other side's</em> options: the fewer and weaker their alternatives to you, the stronger your position.</p>
+    <p class="pull">A strong Plan B is the quietest kind of confidence.</p>
+    <p>Rate each factor below from 1 to 10. Your average score tells you how aggressively to negotiate:</p>
+    <ul>
+      <li><b>Under 4</b> — weak. Build alternatives; aim for a solid, typical outcome.</li>
+      <li><b>4 to 7</b> — average. Run a standard negotiation and push your strongest issues.</li>
+      <li><b>Over 7</b> — strong. The employer needs you; set an ambitious goal.</li>
+    </ul>`,
+  custom:"batna",
+  wt:"Score your BATNA",
+  wn:"Move each slider toward the end that fits your situation. Your average updates live.",
+  focus:"Scoring your BATNA strength so you know how ambitious your goal can be.",
+  starters:["I don't have another offer — is my BATNA weak?","My score is low — what should I do?","How does my score set my goal?"]
+},
+{
+  tag:"Step 07", title:"Reservation Point & Target",
+  sub:"Fix the two numbers that bound everything: your floor and your reach.",
+  concept:`
+    <h3>Your floor and your reach</h3>
+    <p>With your BATNA scored, set the two numbers that frame the whole negotiation: your <strong>reservation point</strong> (the floor you won't go below) and your <strong>ambitious target</strong> (what you open with).</p>
+    <p class="pull">Aim for the reach, protect the floor.</p>
+    <ul>
+      <li>Reservation point = your BATNA ± what matters only to you. Keep it private.</li>
+      <li>Target sits well above the floor — let your BATNA score set how high.</li>
+      <li>A strong BATNA earns an aggressive target; a weak one, a solid typical goal.</li>
+    </ul>
+    <div class="note"><div>Every offer you built earlier should sit above your floor.</div></div>`,
+  ws:{title:"Set your range",note:"Pin down the lowest you'll accept and the most you'll ask for.",
+    fields:[
+      {key:"reservation",type:"text",label:"Your reservation point (minimum you'd accept)",placeholder:"e.g. $128k total, nothing lower"},
+      {key:"idiosyncratic",type:"textarea",label:"Factors that adjust your floor",hint:"What would make you accept less — or demand more?",placeholder:"e.g. Fully remote is worth ~$10k to me."},
+      {key:"goal",type:"text",label:"Your ambitious target (what you open with)",placeholder:"e.g. $165k base + VP title + performance bet"}
+    ]},
+  focus:"Setting your reservation point and an ambitious target above it, guided by your BATNA score.",
+  starters:["How do I calculate my bottom line?","How far above my floor should I aim?","My BATNA is strong — how aggressive can I be?"]
+},
+{
+  tag:"Step 08", title:"Communication & Delivery",
+  sub:"Shape the message around what they need — then deliver it in the right channel.",
+  concept:`
+    <h3>Message, then channel</h3>
+    <p>Go first to anchor, and carry your message like an hourglass:</p>
+    <ul>
+      <li><b>Start wide:</b> how your differentiators solve their pressing needs.</li>
+      <li><b>Narrow:</b> the offer, going across each storytelling issue.</li>
+      <li><b>Finish wide:</b> reinforce how the whole package meets their needs.</li>
+    </ul>
+    <p class="pull">It's not just what you say — it's how, and where, you say it.</p>
+    <p>Then deliver it in a live channel — in person, video, or phone — never by email. If you're forced into writing, lead with their needs and ask for a quick call.</p>`,
+  ws:{title:"Plan your message and delivery",note:"Draft the message you'll carry, then choose how you'll deliver it.",
+    fields:[
+      {key:"openingmessage",type:"textarea",label:"Start wide — your message",hint:"How your differentiators solve their pressing need.",placeholder:"e.g. You need fast revenue in this market; I've built exactly that twice."},
+      {key:"openingoffer",type:"textarea",label:"Narrow — your offer",hint:"Go across your storytelling issues; anchor at your target.",placeholder:"e.g. Lead the new region, a performance bet, $165k base."},
+      {key:"reinforce",type:"text",label:"Finish wide — your reinforcement",hint:"One line tying the package back to their needs.",placeholder:"e.g. This gets you revenue in the new market faster than anyone else could."},
+      {key:"channel",type:"select",label:"Delivery channel",options:["In person","Video call","Phone call","Written (then request a call)"]}
+    ]},
+  focus:"Crafting the hourglass message and choosing a live channel to deliver it.",
+  starters:["Write my message in the hourglass structure.","They emailed the offer — how do I move to a call?","What do I say in the first 30 seconds?"]
+},
+{
+  tag:"Step 09", title:"Leave Room to Concede",
+  sub:"Concessions close deals — when each one carries a reason, and you never drop below your floor.",
+  concept:`
+    <h3>Give ground on purpose</h3>
+    <p>Closing usually needs concessions — and that's good, if planned. A concession makes the other side feel they <strong>won</strong>, which is why you opened above your target.</p>
+    <p class="pull">Concede with a rationale, and keep offering choices.</p>
+    <ul>
+      <li><b>Trade, don't give:</b> spend storytelling generosity to win movement on contentious issues.</li>
+      <li><b>Every concession gets a reason</b> — and ideally something adjusted elsewhere to balance it.</li>
+      <li><b>Keep using multiple offers</b> as you concede, so they keep choosing.</li>
+      <li><b>Hold a trigger issue in reserve</b> — a way for them to revisit terms later. It lowers the risk of saying yes now and surfaces hidden objections.</li>
+    </ul>
+    <p>Stay at the level of <strong>interests</strong> — their underlying needs — rather than rights ("I deserve…") or power (status, threats). The lower-power party should never leave interests.</p>
+    <div class="note"><div>Never cross the bottom line you set earlier — that's the one rule that doesn't bend.</div></div>`,
+  ws:{title:"Plan your endgame",note:"Decide what you'll trade, what you'll hold in reserve, and how you'll answer pushback.",
+    fields:[
+      {key:"concessions",type:"textarea",label:"Concessions you'll make — and what you'll ask in return",placeholder:"e.g. I'll ease the timeline if base rises to $180k and the bet stays in."},
+      {key:"triggerissue",type:"textarea",label:"A trigger / reserve issue",hint:"Something that lets them revisit terms later and de-risks a yes.",placeholder:"e.g. A six-month review that can lift title or comp if targets are hit."},
+      {key:"objections",type:"textarea",label:"Likely objections & your responses",hint:"Answer by returning to their needs and your value — stay on interests.",placeholder:"e.g. \"Budget is fixed.\" → \"Understood — then let's talk the bet and an early review.\""}
+    ]},
+  focus:"Planning concessions, a trigger issue, and staying on interests.",
+  starters:["How do I concede without looking weak?","What's a good trigger issue for my deal?","They say budget is fixed — what do I say?"]
+},
+{
+  tag:"Step 10", title:"Your Plan & the Five F's",
+  sub:"Everything distilled into five moves, plus the complete plan you just built.",
+  concept:`
+    <h3>The Five F's of a fearless negotiator</h3>
+    <div class="fives">
+      <div class="fcard"><div class="fn">01</div><div class="ft">Go First</div><div class="fd">Make the first offer and anchor the talk.</div></div>
+      <div class="fcard"><div class="fn">02</div><div class="ft">Focus on them</div><div class="fd">Frame your value around their needs.</div></div>
+      <div class="fcard"><div class="fn">03</div><div class="ft">Frame it</div><div class="fd">Loss words to move; gain words to hold.</div></div>
+      <div class="fcard"><div class="fn">04</div><div class="ft">Be Flexible</div><div class="fd">Use three offers and room to concede.</div></div>
+      <div class="fcard"><div class="fn">05</div><div class="ft">No Feeble offers</div><div class="fd">Make a clear, specific ask every time.</div></div>
+    </div>
+    <p class="pull">You came in unsure. You're leaving with a plan.</p>
+    <p>Here's the complete plan you built. Review it with Dr Medvec, then take it into the room.</p>`,
+  ws:null,
+  focus:"Final review — let's pressure-test your whole plan or role-play the conversation.",
+  starters:["Pressure-test my plan for weak spots.","Let's role-play — you be the hiring manager.","Give me a quick pep talk before I go in."]
+}
+];
+
+const HELP=[
+"Your company profile, the employer's pressing needs, and your differentiators are the engine of the plan — they shape every issue, offer, and message that follows.",
+"Listing the issues that serve each objective gives you the raw material for your offers — and shows which issues do double duty.",
+"Turning each differentiator into concrete issues is how you generate the storytelling issues that win the hard issues later.",
+"Sorting issues into the four quadrants tells you exactly what to vary and what to hold constant when you build your offers.",
+"Three structured offers give them a real choice instead of one ask — and their pick reveals what they value most.",
+"Your BATNA score is your power reading — the stronger it is, the higher you can aim and the calmer you'll feel.",
+"Your reservation point is your floor and your target is your reach; together they set the range you negotiate inside.",
+"A clear message and the right live channel protect all the work above — it's where your plan meets the real conversation.",
+"Pre-planned, well-reasoned concessions and a trigger issue in reserve let you close confidently while staying above your floor."
+];
+const QUOTE=[
+"Preparation is what turns nerves into nerve.",
+"The issue that serves many goals is the one worth fighting for.",
+"Your edge becomes leverage the moment you name it.",
+"Know which issues to trade, and the hard ones get easier.",
+"Give them a choice, not a wall. That's how you stay fearless.",
+"A strong Plan B is the quietest kind of confidence.",
+"Aim for the reach, protect the floor.",
+"Go first. The first number sets the frame.",
+"You've built the case. Now you just have to make it."
+];
+
+const BATNA_Q=[
+ {q:"How many other candidates could the employer realistically hire instead of you?",lo:"Many strong options",hi:"Essentially no one else"},
+ {q:"How uniquely qualified are you for this specific role?",lo:"Easily replaceable",hi:"Highly differentiated"},
+ {q:"How essential are your strengths to the employer hitting their goals?",lo:"Not important",hi:"Critical to their success"},
+ {q:"How much rare knowledge or experience do you bring that drives results?",lo:"Nothing unusual",hi:"Deep, hard-to-find expertise"},
+ {q:"How urgently does the employer need to fill this position?",lo:"No urgency at all",hi:"Under intense time pressure"},
+ {q:"How long would it take them to hire someone else instead?",lo:"They could replace you fast",hi:"It would take a long time"},
+ {q:"How stretched is the hiring manager until this role is filled?",lo:"Not burdened at all",hi:"Heavily burdened now"},
+ {q:"How critical are you to your future manager hitting their own targets?",lo:"Not really",hi:"Make-or-break"},
+ {q:"How much pressure is your future manager under to deliver?",lo:"Very little",hi:"Enormous pressure"},
+ {q:"How much pressure is the company under to hit its goals?",lo:"Very little",hi:"Enormous pressure"}
+];
+
+/* ====================== STATE ====================== */
+let current=0;
+const plan={_recap:{}};
+let thread=[];
+let _uid=0; const uid=()=>'x'+(++_uid);
+let diffSel=null;
+
+/* ====================== NAV ====================== */
+function startApp(){document.body.classList.add('in-app');document.getElementById('landing').style.display='none';document.getElementById('app').style.display='block';window.scrollTo(0,0);render();}
+function goHome(){document.body.classList.remove('in-app');document.getElementById('app').style.display='none';document.getElementById('landing').style.display='block';window.scrollTo(0,0);}
+function gotoStep(i){if(i<0||i>=STEPS.length)return;saveWorksheet();current=i;render();window.scrollTo({top:0,behavior:'smooth'});}
+
+/* ====================== RENDER ====================== */
+function buildStepsList(){document.getElementById('stepsList').innerHTML=STEPS.map((s,i)=>`<div class="sli"><span class="n">${String(i+1).padStart(2,'0')}</span><span class="t">${s.title}</span></div>`).join('');}
+function render(){
+  const s=STEPS[current];
+  document.getElementById('progFill').style.width=((current+1)/STEPS.length*100)+'%';
+  document.getElementById('stepCount').textContent=`Step ${current+1} of ${STEPS.length}`;
+  document.getElementById('dots').innerHTML=STEPS.map((st,i)=>`<button class="dot ${i===current?'active':''} ${i<current?'done':''}" onclick="gotoStep(${i})" aria-label="Step ${i+1}"></button>`).join('');
+
+  let html=`<div class="eyebrow">${s.tag}</div><h2>${s.title}</h2><p class="sub">${s.sub}</p><div class="concept">${s.concept}</div>`;
+  if(s.ws){
+    html+=`<div class="ws-label">Your notes</div><div class="ws-title">${s.ws.title}</div><p class="ws-note">${s.ws.note}</p>${s.ws.fields.map(renderField).join('')}`;
+  } else if(s.custom){
+    html+=`<div class="ws-label">Your work</div><div class="ws-title">${s.wt}</div><p class="ws-note">${s.wn}</p><div id="customBody">${customHTML(s)}</div>`;
+  } else {
+    html+=renderPlan();
+  }
+  html+=`<div class="nav">
+    ${current>0?`<button class="btn btn-secondary" onclick="gotoStep(${current-1})">← Back</button>`:`<span></span>`}
+    ${current<STEPS.length-1?`<button class="btn btn-primary" onclick="showRecap()">Next →</button>`:`<button class="btn btn-primary" onclick="goHome()">Finish ✓</button>`}
+  </div>
+  <div id="recapZone"></div>`;
+  const stage=document.getElementById('stage');
+  stage.innerHTML=html;stage.style.animation='none';void stage.offsetWidth;stage.style.animation='';
+  if(s.custom==='diffChart')requestAnimationFrame(initDiffChart);
+  if(s.custom==='issueMatrix')requestAnimationFrame(initIssueMatrix);
+  updatePanelMeta();
+}
+
+/* generic fields */
+function renderField(f){
+  const v=plan[f.key];
+  if(f.type==='text')return `<div class="field"><label>${f.label}</label>${f.hint?`<div class="hint">${f.hint}</div>`:''}<input type="text" data-key="${f.key}" value="${esc(v||'')}" placeholder="${f.placeholder||''}"></div>`;
+  if(f.type==='textarea')return `<div class="field"><label>${f.label}</label>${f.hint?`<div class="hint">${f.hint}</div>`:''}<textarea data-key="${f.key}" placeholder="${f.placeholder||''}">${esc(v||'')}</textarea></div>`;
+  if(f.type==='select')return `<div class="field"><label>${f.label}</label>${f.hint?`<div class="hint">${f.hint}</div>`:''}<select data-key="${f.key}"><option value="">Choose…</option>${f.options.map(o=>`<option ${v===o?'selected':''}>${o}</option>`).join('')}</select></div>`;
+  if(f.type==='list'){const arr=Array.isArray(v)&&v.length?v:[''];return `<div class="field" data-listkey="${f.key}"><label>${f.label}</label>${f.hint?`<div class="hint">${f.hint}</div>`:''}<div class="list-rows">${arr.map(r=>listRow(f,r)).join('')}</div><button class="add-row" onclick="addRow(this,'${f.key}','${f.placeholder||''}')">+ ${f.addLabel||'Add'}</button></div>`;}
+  return '';
+}
+function listRow(f,val){return `<div class="list-row"><input type="text" value="${esc(val||'')}" placeholder="${f.placeholder||''}"><button class="del" onclick="this.parentElement.remove()">×</button></div>`;}
+function addRow(btn,key,ph){const rows=btn.parentElement.querySelector('.list-rows');const d=document.createElement('div');d.innerHTML=listRow({placeholder:ph},'');rows.appendChild(d.firstChild);rows.lastChild.querySelector('input').focus();}
+function saveWorksheet(){
+  document.querySelectorAll('#stage input[data-key],#stage textarea[data-key],#stage select[data-key]').forEach(el=>{plan[el.dataset.key]=(el.value||'').trim();});
+  document.querySelectorAll('#stage [data-listkey]').forEach(g=>{plan[g.dataset.listkey]=[...g.querySelectorAll('.list-row input')].map(i=>i.value.trim()).filter(Boolean);});
+}
+function setPlan(k,v){plan[k]=v;}
+
+/* ====================== CUSTOM DISPATCH ====================== */
+function customHTML(s){
+  if(s.custom==='objIssues')return objIssuesHTML();
+  if(s.custom==='diffChart')return diffCanvasHTML();
+  if(s.custom==='issueMatrix')return issueCanvasHTML();
+  if(s.custom==='mesoTable')return mesoTableHTML();
+  if(s.custom==='batna')return batnaHTML();
+  return '';
+}
+function rerenderCustom(){const b=document.getElementById('customBody');if(b)b.innerHTML=customHTML(STEPS[current]);}
+function findById(arr,id){return (arr||[]).find(x=>x.id===id);}
+function quadName(q){return {story:'Storytelling',contentious:'Contentious',tradeoff:'Trade-off',low:'Low-stakes'}[q]||q;}
+function allIssues(){
+  const seen={},out=[];
+  (plan.objectives||[]).forEach(o=>(o.issues||[]).forEach(it=>{const t=(it.text||'').trim();if(t&&!seen[t.toLowerCase()]){seen[t.toLowerCase()]=1;out.push({key:t,text:t});}}));
+  (plan.diffs||[]).forEach(d=>(d.issues||[]).forEach(b=>{const t=(b.text||'').trim();if(t&&!seen[t.toLowerCase()]){seen[t.toLowerCase()]=1;out.push({key:t,text:t});}}));
+  return out;
+}
+
+/* -- Step 2: objectives -> issues (two-column) -- */
+function ensureStep1(){if(!plan.objectives)plan.objectives=[
+  {id:uid(),text:"Address the employer's pressing needs",issues:[{id:uid(),text:''}]},
+  {id:uid(),text:"Build relationships with senior leaders",issues:[{id:uid(),text:''}]},
+  {id:uid(),text:"Differentiate myself from other employees",issues:[{id:uid(),text:''}]}
+];}
+function objIssuesHTML(){
+  ensureStep1();
+  const rows=plan.objectives.map(o=>{
+    const iss=(o.issues||[]).map(it=>`<div class="issrow"><input value="${esc(it.text)}" oninput="objIssText('${o.id}','${it.id}',this.value)" placeholder="Negotiable issue for this objective"><button class="rm" onclick="delObjIss('${o.id}','${it.id}')">×</button></div>`).join('');
+    return `<tr>
+      <td class="rowhead"><div class="celledit"><textarea class="cellinput" rows="2" oninput="objText('${o.id}',this.value)" placeholder="Objective">${esc(o.text)}</textarea><button class="rm" onclick="delObj('${o.id}')">×</button></div></td>
+      <td>${iss}<button class="addbtn" onclick="addObjIss('${o.id}')">+ issue</button></td>
+    </tr>`;
+  }).join('');
+  return `<div class="tablewrap"><table class="grid two"><thead><tr><th class="rowhead">Objective</th><th>Negotiable issue(s) that serve it</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <div class="addbtns" style="margin-top:10px"><button class="addbtn" onclick="addObj()">+ Add objective</button></div>
+  <p class="mininote">Give every objective at least one negotiable issue. The same issue can serve several objectives — list it under each one it helps.</p>`;
+}
+function objText(id,v){const o=findById(plan.objectives,id);if(o)o.text=v;}
+function objIssText(oid,iid,v){const o=findById(plan.objectives,oid);if(o){const it=findById(o.issues,iid);if(it)it.text=v;}}
+function addObj(){plan.objectives.push({id:uid(),text:'',issues:[{id:uid(),text:''}]});rerenderCustom();}
+function delObj(id){plan.objectives=plan.objectives.filter(o=>o.id!==id);rerenderCustom();}
+function addObjIss(oid){const o=findById(plan.objectives,oid);if(o){o.issues.push({id:uid(),text:''});rerenderCustom();}}
+function delObjIss(oid,iid){const o=findById(plan.objectives,oid);if(o){o.issues=o.issues.filter(x=>x.id!==iid);rerenderCustom();}}
+
+/* -- Step 3: differentiation chart (native SVG canvas) -- */
+function ensureDiffs(){if(!plan.diffs)plan.diffs=[{id:uid(),text:'',x:null,y:null,issues:[]}];}
+function diffCanvasHTML(){
+  return `<div class="canvastoolbar">
+    <button class="addbtn" id="diffAddBubble">+ Differentiator</button>
+    <button class="addbtn" id="diffAddIssue">+ Issue to selected</button>
+    <button class="addbtn" id="diffRename">Rename selected</button>
+    <button class="addbtn" id="diffDelete">Delete selected</button>
+  </div>
+  <div class="canvasStage" id="diffStage"></div>
+  <p class="mininote">Click a bubble to select it, then add issues that stem from it. Drag to arrange; double-click (or Rename) to edit.</p>`;
+}
+function diffNode(id){for(const d of plan.diffs){if(d.id===id)return d;for(const it of (d.issues||[]))if(it.id===id)return it;}return null;}
+function initDiffChart(){
+  ensureDiffs();
+  const host=document.getElementById('diffStage'); if(!host)return;
+  const W=host.clientWidth||620;
+  plan.diffs.forEach((d,di)=>{ if(d.x==null)d.x=Math.min(110+di*180,W-100); if(d.y==null)d.y=70; (d.issues||[]).forEach((it,ii)=>{ if(it.x==null)it.x=d.x+(ii%2?72:-72); if(it.y==null)it.y=d.y+130+Math.floor(ii/2)*72; }); });
+  drawDiff();
+  const tb=host.parentElement;
+  tb.querySelector('#diffAddBubble').onclick=()=>{const d={id:uid(),text:'',x:(host.clientWidth||W)/2,y:64,issues:[]};plan.diffs.push(d);diffSel={type:'diff',id:d.id};drawDiff();const el=host.querySelector('.cnode[data-id="'+d.id+'"]');if(el)startEditNode(el);};
+  tb.querySelector('#diffAddIssue').onclick=()=>{if(!diffSel||diffSel.type!=='diff'){flashHint(host,'Select a differentiator bubble first.');return;}const d=findById(plan.diffs,diffSel.id);const n=d.issues.length;const it={id:uid(),text:'',x:d.x+(n%2?72:-72),y:d.y+130+Math.floor(n/2)*72};d.issues.push(it);diffSel={type:'iss',id:it.id,parent:d.id};drawDiff();const el=host.querySelector('.cnode[data-id="'+it.id+'"]');if(el)startEditNode(el);};
+  tb.querySelector('#diffRename').onclick=()=>{if(!diffSel)return;const el=host.querySelector('.cnode[data-id="'+diffSel.id+'"]');if(el)startEditNode(el);};
+  tb.querySelector('#diffDelete').onclick=()=>{if(!diffSel)return;if(diffSel.type==='diff')plan.diffs=plan.diffs.filter(x=>x.id!==diffSel.id);else{const d=findById(plan.diffs,diffSel.parent);if(d)d.issues=d.issues.filter(x=>x.id!==diffSel.id);}diffSel=null;drawDiff();};
+  host.addEventListener('pointerdown',e=>{ if(e.target===host||e.target.classList.contains('cv-lines')){diffSel=null;updateDiffSel(host);} });
+}
+function drawDiff(){
+  const host=document.getElementById('diffStage'); if(!host)return;
+  const W=host.clientWidth||620,H=440;
+  let svg='<svg class="cv-lines" width="'+W+'" height="'+H+'">';
+  plan.diffs.forEach(d=>(d.issues||[]).forEach(it=>{svg+='<line x1="'+d.x+'" y1="'+d.y+'" x2="'+it.x+'" y2="'+it.y+'" stroke="#C9D4E6" stroke-width="2" data-f="'+d.id+'" data-t="'+it.id+'"/>';}));
+  svg+='</svg>';
+  let nodes='';
+  plan.diffs.forEach(d=>{const sel=diffSel&&diffSel.id===d.id;nodes+='<div class="cnode bubble'+(sel?' sel':'')+'" data-id="'+d.id+'" data-type="diff" style="left:'+d.x+'px;top:'+d.y+'px">'+(d.text?esc(d.text):'<span class=ph>Differentiator</span>')+'</div>';});
+  plan.diffs.forEach(d=>(d.issues||[]).forEach(it=>{const sel=diffSel&&diffSel.id===it.id;nodes+='<div class="cnode issue'+(sel?' sel':'')+'" data-id="'+it.id+'" data-type="iss" data-parent="'+d.id+'" style="left:'+it.x+'px;top:'+it.y+'px">'+(it.text?esc(it.text):'<span class=ph>Issue</span>')+'</div>';}));
+  host.innerHTML=svg+nodes;
+  host.querySelectorAll('.cnode').forEach(el=>attachDiffNode(el,host));
+}
+function updateDiffSel(host){host.querySelectorAll('.cnode').forEach(el=>el.classList.toggle('sel',!!diffSel&&el.dataset.id===diffSel.id));}
+function updateDiffLines(host){host.querySelectorAll('.cv-lines line').forEach(ln=>{const f=diffNode(ln.getAttribute('data-f')),t=diffNode(ln.getAttribute('data-t'));if(f&&t){ln.setAttribute('x1',f.x);ln.setAttribute('y1',f.y);ln.setAttribute('x2',t.x);ln.setAttribute('y2',t.y);}});}
+function attachDiffNode(el,host){
+  el.addEventListener('pointerdown',e=>{
+    if(el.isContentEditable)return;
+    e.preventDefault();
+    const node=diffNode(el.dataset.id); if(!node)return;
+    const sx=e.clientX,sy=e.clientY,ox=node.x,oy=node.y; let moved=false;
+    try{el.setPointerCapture(e.pointerId);}catch(_){}
+    const move=ev=>{const dx=ev.clientX-sx,dy=ev.clientY-sy;if(Math.abs(dx)+Math.abs(dy)>3)moved=true;node.x=Math.max(48,Math.min((host.clientWidth||620)-48,ox+dx));node.y=Math.max(32,Math.min(408,oy+dy));el.style.left=node.x+'px';el.style.top=node.y+'px';updateDiffLines(host);};
+    const up=ev=>{el.removeEventListener('pointermove',move);el.removeEventListener('pointerup',up);if(!moved){diffSel={type:el.dataset.type==='diff'?'diff':'iss',id:el.dataset.id,parent:el.dataset.parent};updateDiffSel(host);}};
+    el.addEventListener('pointermove',move);el.addEventListener('pointerup',up);
+  });
+  el.addEventListener('dblclick',e=>{e.preventDefault();startEditNode(el);});
+}
+function startEditNode(el){
+  const node=diffNode(el.dataset.id); if(!node)return;
+  el.classList.remove('sel'); el.textContent=node.text;
+  el.contentEditable=true; el.focus();
+  const r=document.createRange();r.selectNodeContents(el);const s=window.getSelection();s.removeAllRanges();s.addRange(r);
+  const fin=()=>{node.text=el.textContent.trim();el.contentEditable=false;el.removeEventListener('blur',fin);el.removeEventListener('keydown',key);drawDiff();};
+  const key=ev=>{if(ev.key==='Enter'){ev.preventDefault();el.blur();}if(ev.key==='Escape'){el.textContent=node.text;el.blur();}};
+  el.addEventListener('blur',fin); el.addEventListener('keydown',key);
+}
+function flashHint(host,msg){const h=document.createElement('div');h.textContent=msg;h.style.cssText='position:absolute;left:50%;top:12px;transform:translateX(-50%);background:var(--navy);color:#fff;font-size:12px;padding:6px 12px;border-radius:8px;z-index:8';host.appendChild(h);setTimeout(()=>h.remove(),1800);}
+
+/* -- Step 4: issue matrix (native canvas) -- */
+function issueCanvasHTML(){
+  if(!allIssues().length)return `<div class="emptyhint">Add negotiable issues in the earlier steps first — they'll appear here to sort.</div>`;
+  return `<div class="canvasStage" id="issueStage" style="height:500px"></div><p class="mininote">Drag each issue from the top tray into a quadrant. Positions are saved automatically.</p>`;
+}
+function quadAtPos(x,y,g){if(y<g.TRAY)return null;const right=x>=g.midX,top=y<g.midY;if(top&&!right)return 'story';if(top&&right)return 'contentious';if(!top&&right)return 'tradeoff';return 'low';}
+function initIssueMatrix(){
+  plan.quad=plan.quad||{}; plan.quadPos=plan.quadPos||{};
+  const host=document.getElementById('issueStage'); if(!host)return;
+  const W=host.clientWidth||620,H=500,TRAY=48,midX=W/2,midY=TRAY+(H-TRAY)/2,geo={W,H,TRAY,midX,midY};
+  const lbl=(x,y,t,d,c)=>'<div class="im-qlabel" style="left:'+x+'px;top:'+y+'px;color:'+c+'"><div class="qt">'+t+'</div><div class="qd">'+d+'</div></div>';
+  let bg='<div class="im-bg">'
+    +'<div class="im-tray" style="height:'+TRAY+'px">Unsorted — drag each issue down into a quadrant</div>'
+    +'<svg class="im-axes" width="'+W+'" height="'+H+'"><line x1="'+midX+'" y1="'+TRAY+'" x2="'+midX+'" y2="'+H+'" stroke="#D5DEEC" stroke-width="1.5"/><line x1="0" y1="'+midY+'" x2="'+W+'" y2="'+midY+'" stroke="#D5DEEC" stroke-width="1.5"/></svg>'
+    +lbl(12,TRAY+8,'Storytelling','Important to them, easy for you','#1f8a4c')
+    +lbl(midX+12,TRAY+8,'Contentious','Important to both','#c0392b')
+    +lbl(midX+12,midY+8,'Trade-off','Important to you, easy for them','#2E71F2')
+    +lbl(12,midY+8,'Low-stakes','Minor for both','#79839A')
+    +'<div class="im-hint">&larr; easy for you &nbsp;&middot;&nbsp; important to you &rarr;</div>'
+    +'</div>';
+  let trayX=300,chips='';
+  allIssues().forEach(it=>{let p=plan.quadPos[it.key];if(!p){p={x:trayX,y:TRAY/2};trayX+=46;if(trayX>W-50)trayX=300;plan.quadPos[it.key]=p;}const q=plan.quad[it.key]||'';chips+='<div class="im-chip'+(q?' q-'+q:'')+'" data-key="'+esc(it.key)+'" style="left:'+p.x+'px;top:'+p.y+'px">'+esc(it.text)+'</div>';});
+  host.innerHTML=bg+chips;
+  host.querySelectorAll('.im-chip').forEach(el=>attachChip(el,host,geo));
+}
+function attachChip(el,host,geo){
+  el.addEventListener('pointerdown',e=>{
+    e.preventDefault();const key=el.dataset.key;const p=plan.quadPos[key];const sx=e.clientX,sy=e.clientY,ox=p.x,oy=p.y;
+    try{el.setPointerCapture(e.pointerId);}catch(_){}
+    el.classList.add('drag');
+    const move=ev=>{p.x=Math.max(34,Math.min(geo.W-34,ox+ev.clientX-sx));p.y=Math.max(16,Math.min(geo.H-16,oy+ev.clientY-sy));el.style.left=p.x+'px';el.style.top=p.y+'px';};
+    const up=ev=>{el.removeEventListener('pointermove',move);el.removeEventListener('pointerup',up);el.classList.remove('drag');const q=quadAtPos(p.x,p.y,geo);if(q)plan.quad[key]=q;else delete plan.quad[key];el.className='im-chip'+(q?' q-'+q:'');};
+    el.addEventListener('pointermove',move);el.addEventListener('pointerup',up);
+  });
+}
+
+/* -- Step 5: MESO table -- */
+function mesoRec(text,ty){
+  if(/salary|\bpay\b|\bbase\b|price|compensation|\bcomp\b|bonus/i.test(text))return 'Vary or keep constant';
+  if(ty==='story')return 'Vary across A / B / C';
+  return 'Keep constant';
+}
+function mesoTableHTML(){
+  plan.meso=plan.meso||{};plan.quad=plan.quad||{};
+  const issues=allIssues().filter(i=>plan.quad[i.key]);
+  if(!issues.length)return `<div class="emptyhint">Sort your issues in the Issue Matrix step first — they'll flow into this table with a recommended treatment.</div>`;
+  const rows=issues.map(i=>{
+    const ty=plan.quad[i.key],rec=mesoRec(i.text,ty),m=plan.meso[i.key]||{};
+    return `<tr>
+      <td><b>${esc(i.text)}</b></td>
+      <td><span class="tyb ty-${ty}">${quadName(ty)}</span></td>
+      <td class="rec">${rec}</td>
+      <td><textarea oninput="mesoVal('${js(i.key)}','a',this.value)" placeholder="Option A">${esc(m.a||'')}</textarea></td>
+      <td><textarea oninput="mesoVal('${js(i.key)}','b',this.value)" placeholder="Option B">${esc(m.b||'')}</textarea></td>
+      <td><textarea oninput="mesoVal('${js(i.key)}','c',this.value)" placeholder="Option C">${esc(m.c||'')}</textarea></td>
+    </tr>`;
+  }).join('');
+  return `<div class="mesowrap"><table class="meso"><thead><tr><th>Issue</th><th>Type</th><th>Recommended</th><th>Option A</th><th>Option B</th><th>Option C</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <p class="mininote" style="margin-top:10px">Vary storytelling issues across the options; keep contentious and trade-off issues constant; salary can vary or stay constant.</p>`;
+}
+function mesoVal(key,which,v){plan.meso=plan.meso||{};plan.meso[key]=plan.meso[key]||{};plan.meso[key][which]=v;}
+
+/* -- Step 6: BATNA assessment -- */
+function ensureBatna(){plan.batnaQ=plan.batnaQ||{};for(let i=0;i<BATNA_Q.length;i++){if(plan.batnaQ['q'+i]==null)plan.batnaQ['q'+i]=5;}}
+function batnaScore(){ensureBatna();let s=0;for(let i=0;i<BATNA_Q.length;i++)s+=plan.batnaQ['q'+i];return s/BATNA_Q.length;}
+function batnaLevel(a){if(a<4)return {k:'weak',t:'Weak BATNA'};if(a<7)return {k:'avg',t:'Average BATNA'};return {k:'strong',t:'Strong BATNA'};}
+function batnaDesc(k){return k==='weak'?'Limited leverage right now — build more alternatives and aim for a solid, typical outcome rather than an aggressive one.':k==='avg'?'A workable position — run a standard negotiation and push hard on your strongest issues.':'High leverage — the employer needs you. Set an ambitious goal and hold firm above your floor.';}
+function batnaHTML(){
+  ensureBatna();
+  const avg=batnaScore(),lv=batnaLevel(avg);
+  const rows=BATNA_Q.map((it,i)=>{const v=plan.batnaQ['q'+i];return `<div class="qrow"><div class="qt">${esc(it.q)}</div><div class="qscale"><span class="qlo">${esc(it.lo)}</span><input type="range" min="1" max="10" value="${v}" oninput="setBatnaSlider(${i},this.value,'bl${i}')"><span class="qhi">${esc(it.hi)}</span><span class="qval" id="bl${i}">${v}</span></div></div>`;}).join('');
+  const build=(Array.isArray(plan.buildbatna)&&plan.buildbatna.length?plan.buildbatna:['']);
+  return `
+  <div class="field"><label>Your best outside option (BATNA)</label><div class="hint">Your Plan B — the deal you'd take if this one falls through.</div><textarea oninput="setPlan('batna',this.value)" placeholder="e.g. A competing offer at $135k, or staying in my current role.">${esc(plan.batna||'')}</textarea></div>
+  <div class="scorebox"><div class="scorenum" id="batnaScoreNum">${avg.toFixed(1)}<span style="font-size:15px;color:var(--muted)">/10</span></div><div class="scoremeta"><span class="scbadge sc-${lv.k}" id="batnaBadge">${lv.t}</span><div class="scdesc" id="batnaDesc">${batnaDesc(lv.k)}</div></div></div>
+  <div class="quiz">${rows}</div>
+  <div class="field" data-listkey="buildbatna"><label>Actions to strengthen your BATNA</label><div class="hint">What can you line up before you negotiate?</div><div class="list-rows">${build.map(r=>listRow({placeholder:'e.g. Follow up with the other recruiter'},r)).join('')}</div><button class="add-row" onclick="addRow(this,'buildbatna','')">+ Add an action</button></div>`;
+}
+function setBatnaSlider(i,val,labelId){plan.batnaQ=plan.batnaQ||{};plan.batnaQ['q'+i]=+val;const l=document.getElementById(labelId);if(l)l.textContent=val;updateBatnaScoreUI();}
+function updateBatnaScoreUI(){const avg=batnaScore(),lv=batnaLevel(avg);const n=document.getElementById('batnaScoreNum');if(n)n.innerHTML=avg.toFixed(1)+'<span style="font-size:15px;color:var(--muted)">/10</span>';const b=document.getElementById('batnaBadge');if(b){b.className='scbadge sc-'+lv.k;b.textContent=lv.t;}const d=document.getElementById('batnaDesc');if(d)d.textContent=batnaDesc(lv.k);}
+
+/* ====================== ENTRIES (recap + plan) ====================== */
+function stepEntries(s){
+  if(s.custom==='objIssues'){
+    return (plan.objectives||[]).filter(o=>o.text||(o.issues||[]).some(i=>i.text)).map(o=>({label:o.text||'Objective',value:(o.issues||[]).map(i=>i.text).filter(Boolean).join(', ')}));
+  }
+  if(s.custom==='diffChart'){
+    return (plan.diffs||[]).filter(d=>d.text||(d.issues||[]).some(b=>b.text)).map(d=>({label:d.text||'Differentiator',value:(d.issues||[]).map(b=>b.text).filter(Boolean).join(', ')}));
+  }
+  if(s.custom==='issueMatrix'){
+    const out=[];['story','contentious','tradeoff','low'].forEach(k=>{const its=allIssues().filter(i=>plan.quad&&plan.quad[i.key]===k).map(i=>i.text);if(its.length)out.push({label:quadName(k),value:its.join(', ')});});
+    return out;
+  }
+  if(s.custom==='mesoTable'){
+    return allIssues().filter(i=>plan.meso&&plan.meso[i.key]&&(plan.meso[i.key].a||plan.meso[i.key].b||plan.meso[i.key].c)).map(i=>{const m=plan.meso[i.key];return {label:i.text,value:`A: ${m.a||'—'} | B: ${m.b||'—'} | C: ${m.c||'—'}`};});
+  }
+  if(s.custom==='batna'){
+    const avg=batnaScore(),lv=batnaLevel(avg);
+    return [
+      {label:'Outside option (BATNA)',value:plan.batna||''},
+      {label:'BATNA score',value:avg.toFixed(1)+'/10 — '+lv.t},
+      {label:'Actions to strengthen it',value:(plan.buildbatna||[]).join(', ')}
+    ];
+  }
+  if(s.ws)return s.ws.fields.map(f=>{let v=plan[f.key];if(Array.isArray(v))v=v.length?v.join(', '):'';return {label:f.label,value:v||''};});
+  return [];
+}
+function renderPlan(){
+  let out=`<div class="ws-label" style="margin-top:6px">Your plan</div><div class="plan">`;
+  for(let i=0;i<STEPS.length-1;i++){
+    const e=stepEntries(STEPS[i]).filter(x=>x.value);
+    const body=e.length?e.map(x=>`<div><b>${esc(x.label)}:</b> ${esc(x.value)}</div>`).join(''):'<div class="empty">Not filled in yet.</div>';
+    out+=`<div class="prow"><h4><span class="n">${String(i+1).padStart(2,'0')}</span>${esc(STEPS[i].title)}</h4><div class="pv">${body}</div></div>`;
+  }
+  out+=`</div><button class="btn btn-secondary" style="margin-top:18px" onclick="window.print()">Print / save my plan</button>`;
+  return out;
+}
+
+/* ====================== RECAP (cached + sequenced reveal) ====================== */
+async function showRecap(){
+  saveWorksheet();
+  const s=STEPS[current],reqStep=current;
+  document.getElementById('recapZone').innerHTML=`<div class="recap" id="recap">
+    <div class="rh">Quick recap — Step ${String(current+1).padStart(2,'0')}</div>
+    <div class="rsum" id="rsum"><div class="typing"><span></span><span></span><span></span></div></div>
+    <div class="quote" id="rquote" hidden>${esc(QUOTE[current])}</div>
+    <div class="recap-nav" id="rnav" hidden>
+      <button class="btn btn-secondary" onclick="keepEditing()">← Keep editing</button>
+      <button class="btn btn-primary" onclick="gotoStep(${current+1})">Looks good — continue →</button>
+    </div>
+  </div>`;
+  document.getElementById('recap').scrollIntoView({behavior:'smooth',block:'nearest'});
+  const sig=JSON.stringify(stepEntries(s).map(x=>x.value));
+  const cached=plan._recap[reqStep];
+  let html;
+  if(cached&&cached.sig===sig){
+    html=cached.html;
+  }else{
+    try{
+      const txt=clampWords(await recapSummary(s),100);
+      html=esc(txt).split(/\n{2,}/).map(p=>'<p>'+p.replace(/\n/g,' ')+'</p>').join('');
+    }catch(e){
+      const arr=stepEntries(s).filter(x=>x.value);
+      const filled=arr.map(x=>x.label.toLowerCase());
+      const lead=filled.length?`You captured your ${filled.slice(0,3).join(', ')}. `:`Add your details so this step carries into your plan. `;
+      html='<p>'+esc(clampWords(lead+HELP[reqStep],100))+'</p>';
+    }
+    plan._recap[reqStep]={sig,html};
+  }
+  if(current!==reqStep)return;
+  const el=document.getElementById('rsum');if(el)el.innerHTML=html;
+  const q=document.getElementById('rquote');if(q){q.hidden=false;q.classList.add('reveal');}
+  setTimeout(()=>{ if(current!==reqStep)return; const n=document.getElementById('rnav'); if(n){n.hidden=false;n.classList.add('reveal');} },520);
+}
+function clampWords(str,n){const w=String(str).trim().split(/\s+/);return w.length<=n?String(str).trim():w.slice(0,n).join(' ').replace(/[,;:]+$/,'')+'…';}
+function keepEditing(){document.getElementById('recapZone').innerHTML='';}
+async function anthropicFetch(body){
+  // On a public deploy, call the same-origin serverless proxy (keeps the API key server-side).
+  // Inside the Claude app there is no proxy, so fall back to the in-app endpoint.
+  try{
+    const r=await fetch('/api/anthropic',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(r.ok)return r;
+    if(r.status!==404)return r;
+  }catch(e){}
+  return fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+}
+async function recapSummary(s){
+  const idx=STEPS.indexOf(s);
+  const arr=stepEntries(s).filter(x=>x.value);
+  const entries=arr.length?arr.map(x=>`${x.label}: ${x.value}`).join('\n'):'(nothing added yet)';
+  const system=`You are Dr Medvec, a warm, encouraging salary-negotiation coach. The user just completed one step of their preparation. Reply with ONE very short paragraph of AT MOST 100 words (2-3 sentences, plain prose — no lists, no headings, no markdown). First briefly recap what they entered in your own words, then explain how it strengthens their overall plan. Be specific to their actual answers, second person ("you"), tight and encouraging. If a key field is blank, gently nudge them.`;
+  const user=`Step: "${s.title}".
+How this step contributes to the overall plan (for your reference): ${HELP[idx]}
+The user's entries:
+${entries}
+
+Write the recap now (100 words max).`;
+  const res=await anthropicFetch({model:"claude-sonnet-4-20250514",max_tokens:200,system:system,messages:[{role:'user',content:user}]});
+  if(!res.ok)throw new Error('api '+res.status);
+  const data=await res.json();
+  const t=(data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('\n').trim();
+  if(!t)throw new Error('empty');return t;
+}
+
+/* ====================== ASSISTANT PANEL ====================== */
+function openPanel(){document.body.classList.add('panel-open');document.getElementById('panel').classList.add('open');document.getElementById('panel').setAttribute('aria-hidden','false');if(window.innerWidth<=560)document.getElementById('scrim').classList.add('show');updatePanelMeta();renderThread();setTimeout(()=>document.getElementById('coachInput').focus(),250);}
+function closePanel(){document.body.classList.remove('panel-open');document.getElementById('panel').classList.remove('open');document.getElementById('panel').setAttribute('aria-hidden','true');document.getElementById('scrim').classList.remove('show');}
+function updatePanelMeta(){const s=STEPS[current];const c=document.getElementById('panelCtx');if(c)c.innerHTML=`<b>${esc(s.title)}</b> — ${esc(s.focus)}`;const st=document.getElementById('starters');if(st)st.innerHTML=s.starters.map(q=>`<button class="chip" onclick="useStarter(this)">${esc(q)}</button>`).join('');}
+function useStarter(btn){const inp=document.getElementById('coachInput');inp.value=btn.textContent;autoGrow(inp);sendMsg();}
+function renderThread(){
+  const box=document.getElementById('thread');
+  if(thread.length===0){box.innerHTML=`<div class="msg bot"><p>Hi — I'm <b>Dr Medvec</b>. I'll help you prepare for your salary negotiation.</p><p>Ask me anything as you work through each step, or tap a suggestion below.</p></div>`;return;}
+  box.innerHTML=thread.map(m=>`<div class="msg ${m.role==='user'?'me':'bot'}">${m.role==='user'?esc(m.content):mdToHtml(m.content)}</div>`).join('');
+  box.scrollTop=box.scrollHeight;
+}
+function inputKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
+function autoGrow(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,110)+'px';}
+async function sendMsg(){
+  const inp=document.getElementById('coachInput');const text=inp.value.trim();if(!text)return;
+  saveWorksheet();thread.push({role:'user',content:text});inp.value='';autoGrow(inp);renderThread();
+  const box=document.getElementById('thread');const t=document.createElement('div');t.className='typing';t.innerHTML='<span></span><span></span><span></span>';box.appendChild(t);box.scrollTop=box.scrollHeight;
+  document.getElementById('sendBtn').disabled=true;
+  try{thread.push({role:'assistant',content:await callCoach()});}
+  catch(err){thread.push({role:'assistant',content:"I couldn't reach my brain just now — please try again in a moment."});}
+  document.getElementById('sendBtn').disabled=false;renderThread();
+}
+const FRAMEWORK=`THE METHOD YOU TEACH (an employee preparing a salary / role negotiation):
+1 Build context — capture the company/team profile, the employer's PRESSING NEEDS, and the person's DIFFERENTIATORS.
+2 Objectives & negotiable issues — objectives always include addressing the other side's pressing needs, building relationships with senior leaders, and differentiating from other employees, plus the person's own goals; list the issues that serve each objective. An issue serving several objectives matters most.
+3 Differentiation — turn each differentiator into the negotiable issues that flow from it; these become Storytelling Issues.
+4 Issue matrix — place every issue into one of four quadrants by importance-to-you vs importance-to-them: STORYTELLING (important to them, easy for you), CONTENTIOUS (important to both, incl salary), TRADE-OFF (important to you, easy for them), LOW-STAKES (easy for both).
+5 MESO — three offers; VARY storytelling issues across A/B/C, HOLD contentious & trade-off issues constant, salary may vary or stay constant; they choose rather than reject; keep all above the reservation point.
+6 BATNA analysis — score how much the employer needs you (1-10 across ~10 factors, then average): under 4 weak (aim typical), 4-7 average (standard push), over 7 strong (aim ambitious). A strong BATNA = more power.
+7 Reservation point & target — reservation point is the private floor = BATNA +/- personal factors; the target sits above it, sized by the BATNA score.
+8 Communication & delivery — go FIRST; carry the message like an hourglass (wide: differentiators meet needs → narrow: offer across storytelling issues → wide: reinforce); deliver in a live channel, never email.
+9 Concede to close — concede with a rationale, keep offering choices, trade storytelling generosity for contentious gains, hold a TRIGGER/reserve issue, stay at the INTERESTS level, never cross the reservation point.
+The Five F's: First, Focus on them, Frame correctly, Flexible, no Feeble offers.`;
+async function callCoach(){
+  const s=STEPS[current];
+  const allEntries=[];
+  for(const st of STEPS){const e=stepEntries(st).filter(x=>x.value);if(e.length)allEntries.push(`[${st.title}] `+e.map(x=>`${x.label}: ${x.value}`).join('; '));}
+  const planText=allEntries.length?allEntries.join('\n'):'(nothing filled in yet)';
+  const system=`You are Dr Medvec, a warm, sharp, encouraging salary-negotiation coach helping an employee prepare for an upcoming salary negotiation so they get a better offer than they expected. You teach a proven method.
+
+${FRAMEWORK}
+
+The user is currently on STEP: "${s.title}". Coaching focus: ${s.focus}
+
+The user's plan so far (personalize using it):
+${planText}
+
+STYLE:
+- Be specific and concrete — give exact wording, numbers, or scripts when useful.
+- Keep it tight: 2-4 short paragraphs OR a short bulleted list.
+- Reference the relevant concept (BATNA score, reservation point, issue matrix, MESO, the Five F's) by name when natural.
+- Reduce fear, build confidence. Ask ONE crisp clarifying question if you need a detail.
+- You are a negotiation coach, not a lawyer or financial advisor.
+- Light Markdown only: **bold** for key terms, - for bullets.`;
+  const res=await anthropicFetch({model:"claude-sonnet-4-20250514",max_tokens:1000,system:system,messages:thread.map(m=>({role:m.role,content:m.content}))});
+  if(!res.ok)throw new Error('api '+res.status);
+  const data=await res.json();
+  return (data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('\n').trim()||"Could you rephrase that?";
+}
+
+/* ====================== HELPERS ====================== */
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function js(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;').replace(/\n/g,' ');}
+function mdToHtml(s){
+  let h=esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+  const lines=h.split('\n');let out='';let inList=false;
+  for(let ln of lines){
+    if(/^\s*[-•]\s+/.test(ln)){if(!inList){out+='<ul>';inList=true;}out+='<li>'+ln.replace(/^\s*[-•]\s+/,'')+'</li>';}
+    else{if(inList){out+='</ul>';inList=false;}if(ln.trim())out+='<p>'+ln+'</p>';}
+  }
+  if(inList)out+='</ul>';return out;
+}
+buildStepsList();
+</script>
+</body>
+</html>
